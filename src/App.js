@@ -98,9 +98,7 @@ class App extends Component {
                   Operations (JSON)
                 </Header>
                 <Form>
-                  <TextArea rows={10}>
-                    {JSON.stringify(ops, null, 2) }
-                  </TextArea>
+                  <TextArea rows={10} value={JSON.stringify(ops, null, 2) } />
                 </Form>
                 <Header>
                   Operations (Base64 Encoded JSON string)
