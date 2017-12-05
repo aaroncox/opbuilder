@@ -124,7 +124,7 @@ class App extends Component {
                     </a>
                   </p>
                   <p>
-                    <a href={`https://v2.steemconnect.com/sign/${opType}/`}>
+                    <a href={`https://v2.steemconnect.com/sign/${opType}?${sc_url_params}`}>
                       {`https://v2.steemconnect.com/sign/${opType}?${sc_url_params}`}
                     </a>
                   </p>
