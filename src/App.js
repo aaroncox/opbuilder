@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './semantic/dist/semantic.min.css';
 
-import { Container, Form, Header, Segment, Select, TextArea } from 'semantic-ui-react'
+import { Container, Dropdown, Form, Header, Segment, Select, TextArea } from 'semantic-ui-react'
 import * as OPS from './ops';
 import _ from 'lodash'
 
@@ -73,12 +73,17 @@ class App extends Component {
         </Header>
         <Segment>
           <Form>
-            <Form.Select
-              name='op'
-              label='Operation Type'
-              options={ops_options}
-              onChange={this.onChangeOp}
-            />
+            <Form.Field>
+              <label>Operation Type</label>
+              <Dropdown
+                name='op'
+                options={ops_options}
+                onChange={this.onChangeOp}
+                fluid
+                search
+                selection
+              />
+            </Form.Field>
             {(op)
               ? (
                 <Segment basic size='small'>
