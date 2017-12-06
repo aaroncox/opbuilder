@@ -2,39 +2,62 @@ module.exports = [
   {
     "roles": ["posting", "active", "owner"],
     "operation": "vote",
+    "rules": {
+      author: "account",
+      permlink: "permlink",
+      voter: "account",
+      weight: "percent"
+    },
     "params": [
-      "voter",
       "author",
       "permlink",
+      "voter",
       "weight"
     ]
   },
   {
     "roles": ["posting", "active", "owner"],
     "operation": "comment",
+    "rules": {
+      author: "account",
+      json_metadata: "json",
+      parent_author: "account",
+      parent_permlink: "permlink",
+      permlink: "permlink",
+    },
     "params": [
+      "author",
+      "body",
+      "json_metadata",
       "parent_author",
       "parent_permlink",
-      "author",
       "permlink",
       "title",
-      "body",
-      "json_metadata"
     ]
   },
   {
     "roles": ["active", "owner"],
     "operation": "transfer",
+    "rules": {
+      amount: "asset",
+      from: "account",
+      to: "account",
+    },
     "params": [
-      "from",
-      "to",
       "amount",
-      "memo"
+      "from",
+      "memo",
+      "to",
     ]
   },
   {
     "roles": ["active", "owner"],
     "operation": "transfer_to_vesting",
+    "rules": {
+      from: "account",
+      to: "account",
+      amount: "asset",
+    },
     "params": [
       "from",
       "to",
@@ -44,6 +67,10 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "withdraw_vesting",
+    "rules": {
+      account: "account",
+      vesting_shares: "asset"
+    },
     "params": [
       "account",
       "vesting_shares"
@@ -52,6 +79,7 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "limit_order_create",
+    "rules": {},
     "params": [
       "owner",
       "orderid",
@@ -64,6 +92,9 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "limit_order_cancel",
+    "rules": {
+      owner: "account"
+    },
     "params": [
       "owner",
       "orderid"
@@ -72,6 +103,7 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "price",
+    "rules": {},
     "params": [
       "base",
       "quote"
@@ -80,6 +112,9 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "feed_publish",
+    "rules": {
+      publisher: "account"
+    },
     "params": [
       "publisher",
       "exchange_rate"
@@ -88,6 +123,10 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "convert",
+    "rules": {
+      owner: "account",
+      amount: "asset"
+    },
     "params": [
       "owner",
       "requestid",
@@ -97,6 +136,16 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "account_create",
+    "rules": {
+      fee: "asset",
+      creator: "account",
+      new_account_name: "account",
+      owner: "public_key",
+      active: "public_key",
+      posting: "public_key",
+      memo_key: "public_key",
+      json_metadata: "json"
+    },
     "params": [
       "fee",
       "creator",
@@ -111,6 +160,14 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "account_update",
+    "rules": {
+      account: "account",
+      owner: "public_key",
+      active: "public_key",
+      posting: "public_key",
+      memo_key: "public_key",
+      json_metadata: "json"
+    },
     "params": [
       "account",
       "owner",
@@ -123,6 +180,10 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "witness_update",
+    "rules": {
+      owner: "account",
+      block_signing_key: "public_key",
+    },
     "params": [
       "owner",
       "url",
@@ -134,15 +195,24 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "account_witness_vote",
+    "rules": {
+      account: "account",
+      approve: "bool",
+      witness: "account"
+    },
     "params": [
       "account",
+      "approve",
       "witness",
-      "approve"
     ]
   },
   {
     "roles": ["active", "owner"],
     "operation": "account_witness_proxy",
+    "rules": {
+      account: "account",
+      proxy: "account",
+    },
     "params": [
       "account",
       "proxy"
@@ -150,17 +220,10 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "pow",
-    "params": [
-      "worker",
-      "input",
-      "signature",
-      "work"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
     "operation": "custom",
+    "rules": {
+      required_auths: "auths",
+    },
     "params": [
       "required_auths",
       "id",
@@ -170,6 +233,10 @@ module.exports = [
   {
     "roles": ["posting", "active", "owner"],
     "operation": "delete_comment",
+    "rules": {
+      author: "account",
+      permlink: "permlink",
+    },
     "params": [
       "author",
       "permlink"
@@ -178,6 +245,11 @@ module.exports = [
   {
     "roles": ["posting", "active", "owner"],
     "operation": "custom_json",
+    "rules": {
+      required_auths: "auths",
+      required_posting_auths: "auths",
+      json: "json"
+    },
     "params": [
       "required_auths",
       "required_posting_auths",
@@ -188,6 +260,14 @@ module.exports = [
   {
     "roles": ["posting", "active", "owner"],
     "operation": "comment_options",
+    "rules": {
+      author: "account",
+      permlink: "permlink",
+      max_accepted_payout: "asset",
+      percent_steem_dollars: "percent",
+      allow_votes: "bool",
+      allow_curation_rewards: "bool",
+    },
     "params": [
       "author",
       "permlink",
@@ -201,6 +281,12 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "set_withdraw_vesting_route",
+    "rules": {
+      from_account: "account",
+      to_account: "account",
+      percent: "percent",
+      auto_vest: "bool"
+    },
     "params": [
       "from_account",
       "to_account",
@@ -211,6 +297,7 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "limit_order_create2",
+    "rules": {},
     "params": [
       "owner",
       "orderid",
@@ -223,6 +310,7 @@ module.exports = [
   {
     "roles": ["posting", "active", "owner"],
     "operation": "challenge_authority",
+    "rules": {},
     "params": [
       "challenger",
       "challenged",
@@ -232,6 +320,7 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "prove_authority",
+    "rules": {},
     "params": [
       "challenged",
       "require_owner"
@@ -240,6 +329,7 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "request_account_recovery",
+    "rules": {},
     "params": [
       "recovery_account",
       "account_to_recover",
@@ -250,6 +340,7 @@ module.exports = [
   {
     "roles": ["owner"],
     "operation": "recover_account",
+    "rules": {},
     "params": [
       "account_to_recover",
       "new_owner_authority",
@@ -260,6 +351,7 @@ module.exports = [
   {
     "roles": ["owner"],
     "operation": "change_recovery_account",
+    "rules": {},
     "params": [
       "account_to_recover",
       "new_recovery_account",
@@ -269,6 +361,11 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "escrow_transfer",
+    "rules": {
+      from: "account",
+      to: "account",
+      agent: "account",
+    },
     "params": [
       "from",
       "to",
@@ -285,6 +382,11 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "escrow_dispute",
+    "rules": {
+      from: "account",
+      to: "account",
+      agent: "account",
+    },
     "params": [
       "from",
       "to",
@@ -296,6 +398,11 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "escrow_release",
+    "rules": {
+      from: "account",
+      to: "account",
+      agent: "account",
+    },
     "params": [
       "from",
       "to",
@@ -309,15 +416,12 @@ module.exports = [
   },
   {
     "roles": ["active", "owner"],
-    "operation": "pow2",
-    "params": [
-      "input",
-      "pow_summary"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
     "operation": "escrow_approve",
+    "rules": {
+      from: "account",
+      to: "account",
+      agent: "account",
+    },
     "params": [
       "from",
       "to",
@@ -330,6 +434,11 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "transfer_to_savings",
+    "rules": {
+      from: "account",
+      to: "account",
+      amount: "asset",
+    },
     "params": [
       "from",
       "to",
@@ -340,6 +449,11 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "transfer_from_savings",
+    "rules": {
+      from: "account",
+      to: "account",
+      amount: "asset",
+    },
     "params": [
       "from",
       "request_id",
@@ -351,6 +465,9 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "cancel_transfer_from_savings",
+    "rules": {
+      from: "account",
+    },
     "params": [
       "from",
       "request_id"
@@ -359,6 +476,7 @@ module.exports = [
   {
     "roles": ["posting", "active", "owner"],
     "operation": "custom_binary",
+    "rules": {},
     "params": [
       "id",
       "data"
@@ -367,6 +485,9 @@ module.exports = [
   {
     "roles": ["owner"],
     "operation": "decline_voting_rights",
+    "rules": {
+      account: "account",
+    },
     "params": [
       "account",
       "decline"
@@ -375,6 +496,7 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "reset_account",
+    "rules": {},
     "params": [
       "reset_account",
       "account_to_reset",
@@ -384,6 +506,11 @@ module.exports = [
   {
     "roles": ["owner", "posting"],
     "operation": "set_reset_account",
+    "rules": {
+      account: "account",
+      current_reset_account: "account",
+      reset_account: "account",
+    },
     "params": [
       "account",
       "current_reset_account",
@@ -393,6 +520,9 @@ module.exports = [
   {
     "roles": ["posting", "active", "owner"],
     "operation": "claim_reward_balance",
+    "rules": {
+      account: "account",
+    },
     "params": [
       "account",
       "reward_steem",
@@ -403,6 +533,11 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "delegate_vesting_shares",
+    "rules": {
+      delegator: "account",
+      delegatee: "account",
+      vesting_shares: "asset",
+    },
     "params": [
       "delegator",
       "delegatee",
@@ -412,6 +547,7 @@ module.exports = [
   {
     "roles": ["active", "owner"],
     "operation": "account_create_with_delegation",
+    "rules": {},
     "params": [
       "fee",
       "delegation",
@@ -423,74 +559,6 @@ module.exports = [
       "memo_key",
       "json_metadata",
       "extensions"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "fill_convert_request",
-    "params": [
-      "owner",
-      "requestid",
-      "amount_in",
-      "amount_out"
-    ]
-  },
-  {
-    "roles": ["posting", "active", "owner"],
-    "operation": "comment_reward",
-    "params": [
-      "author",
-      "permlink",
-      "payout"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "liquidity_reward",
-    "params": [
-      "owner",
-      "payout"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "interest",
-    "params": [
-      "owner",
-      "interest"
-    ]
-  },
-  {
-    "roles": ["active", "owner"],
-    "operation": "fill_vesting_withdraw",
-    "params": [
-      "from_account",
-      "to_account",
-      "withdrawn",
-      "deposited"
-    ]
-  },
-  {
-    "roles": ["posting", "active", "owner"],
-    "operation": "fill_order",
-    "params": [
-      "current_owner",
-      "current_orderid",
-      "current_pays",
-      "open_owner",
-      "open_orderid",
-      "open_pays"
-    ]
-  },
-  {
-    "roles": ["posting", "active", "owner"],
-    "operation": "fill_transfer_from_savings",
-    "params": [
-      "from",
-      "to",
-      "amount",
-      "request_id",
-      "memo"
     ]
   }
 ];

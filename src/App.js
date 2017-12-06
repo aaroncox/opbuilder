@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './semantic/dist/semantic.min.css';
 
-import { Container, Dropdown, Form, Header, Segment, Select, TextArea } from 'semantic-ui-react'
+import { Container, Checkbox, Dropdown, Form, Header, Segment, Select, TextArea } from 'semantic-ui-react'
 import * as OPS from './ops';
 import _ from 'lodash'
 
@@ -16,7 +16,21 @@ class App extends Component {
     const op = _.find(OPS, { operation: opType})
     const opData = {}
     op.params.forEach((param) => {
-      opData[param] = ''
+      if(op.rules[param]) {
+        switch(op.rules[param]) {
+          case "percent":
+            opData[param] = 10000
+            break;
+          case "bool":
+            opData[param] = false
+            break;
+          default:
+            opData[param] = ''
+            break;
+        }
+      } else {
+        opData[param] = ''
+      }
     })
     this.setState({
       op,
@@ -24,26 +38,85 @@ class App extends Component {
       b64encoded: window.btoa(JSON.stringify([[opType, opData]]))
     })
   }
+  onChangeParamToggle = (
+    e: SyntheticEvent, { name, checked }: { name: string, checked: string }
+    ) => {
+      const ops = this.state.ops
+      const op = ops[0]
+      const opType = op[0]
+      const opData = op[1]
+      opData[name] = checked
+      this.setState({
+        ops: [[opType, opData]],
+        b64encoded: window.btoa(JSON.stringify([[opType, opData]]))
+      })
+  }
+
   onChangeParam = (e, { value, name }) => {
     const ops = this.state.ops
     const op = ops[0]
     const opType = op[0]
     const opData = op[1]
-    opData[name] = value
+    const { rules } = this.state.op
+    if(rules[name]) {
+      switch(rules[name]) {
+        case "percent":
+          const parsed = parseInt(value)
+          if(parsed >= 0) {
+            opData[name] = parseInt(value)
+          } else {
+            opData[name] = value
+          }
+          break;
+        default:
+          opData[name] = value
+          break;
+      }
+    } else {
+      opData[name] = value
+    }
     this.setState({
       ops: [[opType, opData]],
       b64encoded: window.btoa(JSON.stringify([[opType, opData]]))
     })
   }
   createOpField = (param, idx) => {
+    const ops = this.state.ops
+    const op = ops[0]
+    const opData = op[1]
+    const { rules } = this.state.op
+    let field = <Form.Input
+      name={param}
+      value={opData[param]}
+      onChange={this.onChangeParam}
+    />
+    if(rules[param]) {
+      switch(rules[param]) {
+        case "json":
+          field = (
+            <TextArea
+              name={param}
+              value={this.state[param]}
+              onChange={this.onChangeParam}
+            />
+          )
+          break;
+        case "bool":
+          field = (
+            <Checkbox
+              name={param}
+              value={this.state[param]}
+              checked={this.state[param]}
+              onChange={this.onChangeParamToggle}
+            />
+          )
+          break;
+      }
+    }
     return (
       <Form.Field key={`${param}-${idx}`}>
         <label>{param}</label>
-        <Form.Input
-          name={param}
-          value={this.state[param]}
-          onChange={this.onChangeParam}
-        />
+        {field}
       </Form.Field>
     )
   }
