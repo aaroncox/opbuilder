@@ -15,10 +15,9 @@
     "semantic-ui": "^2.2.9"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "npm run build && ln -s index.html build/404.html && gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build ",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

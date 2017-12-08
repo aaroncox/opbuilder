@@ -8,8 +8,8 @@ export default class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={IndexContainer}/>
-          <Route path="/sign/tx/:ops" component={IndexContainer}/>
+          <Route exact path="/opbuilder" component={IndexContainer}/>
+          <Route path="/opbuilder/sign/tx/:ops" component={IndexContainer}/>
         </div>
       </Router>
     )

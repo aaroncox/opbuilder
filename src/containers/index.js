@@ -21,7 +21,7 @@ class IndexContainer extends Component {
     this.state = initialState
   }
   componentWillUpdate(nextProps, nextState) {
-    const url = `/sign/tx/${nextState.b64encoded}`
+    const url = `/opbuilder/sign/tx/${nextState.b64encoded}`
     const hash = `#${nextState.b64encodedmeta}`
     // console.log("check")
     // console.log(url, this.props.location.pathname)
