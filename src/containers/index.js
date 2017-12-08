@@ -178,7 +178,7 @@ class IndexContainer extends Component {
           field = (
             <TextArea
               name={param}
-              value={this.state[param]}
+              value={opData[param]}
               onChange={this.onChangeParam}
             />
           )
@@ -187,8 +187,8 @@ class IndexContainer extends Component {
           field = (
             <Checkbox
               name={param}
-              value={this.state[param]}
-              checked={this.state[param]}
+              value={opData[param]}
+              checked={opData[param]}
               onChange={this.onChangeParamToggle}
             />
           )
