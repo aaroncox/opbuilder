@@ -296,6 +296,32 @@ class IndexContainer extends Component {
             ? (
               <div>
                 <Header inverted attached='top'>
+                  Perform this transaction
+                </Header>
+                <Header>
+                  Steem HTTP Protocol
+                </Header>
+                <Segment attached style={{overflowX: 'scroll', overflowX: 'hidden'}}>
+                  <a href={`steem://sign/tx/${b64encoded}#${b64encodedmeta}`}>
+                    {`steem://sign/tx/${b64encoded}#${b64encodedmeta}`}
+                  </a>
+                </Segment>
+                <Header>
+                  SteemConnect Transaction Signer
+                </Header>
+                <Segment attached='bottom' style={{overflowX: 'scroll', overflowX: 'hidden'}}>
+                  <p>
+                    <a href={`https://v2.steemconnect.com/sign/tx/${b64encoded}#${b64encodedmeta}`}>
+                      {`https://v2.steemconnect.com/sign/tx/${b64encoded}#${b64encodedmeta}`}
+                    </a>
+                  </p>
+                  <p>
+                    <a href={`https://v2.steemconnect.com/sign/${opType}?${sc_url_params}`}>
+                      {`https://v2.steemconnect.com/sign/${opType}?${sc_url_params}`}
+                    </a>
+                  </p>
+                </Segment>
+                <Header inverted attached='top'>
                   Operation Data
                 </Header>
                 <Segment padded secondary attached='bottom'>
@@ -323,29 +349,6 @@ class IndexContainer extends Component {
                   <Form>
                     <TextArea rows={4} value={b64encodedmeta}/>
                   </Form>
-                  <Header>
-                    Steem HTTP Protocol
-                  </Header>
-                  <Segment attached style={{overflowX: 'scroll', overflowX: 'hidden'}}>
-                    <a href={`steem://sign/tx/${b64encoded}#${b64encodedmeta}`}>
-                      {`steem://sign/tx/${b64encoded}#${b64encodedmeta}`}
-                    </a>
-                  </Segment>
-                  <Header>
-                    SteemConnect Transaction Signer
-                  </Header>
-                  <Segment attached style={{overflowX: 'scroll', overflowX: 'hidden'}}>
-                    <p>
-                      <a href={`https://v2.steemconnect.com/sign/tx/${b64encoded}#${b64encodedmeta}`}>
-                        {`https://v2.steemconnect.com/sign/tx/${b64encoded}#${b64encodedmeta}`}
-                      </a>
-                    </p>
-                    <p>
-                      <a href={`https://v2.steemconnect.com/sign/${opType}?${sc_url_params}`}>
-                        {`https://v2.steemconnect.com/sign/${opType}?${sc_url_params}`}
-                      </a>
-                    </p>
-                  </Segment>
                 </Segment>
               </div>
             )
