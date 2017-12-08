@@ -84,7 +84,7 @@ class IndexContainer extends Component {
     const { meta } = this.state
     let newMeta = Object.assign({}, meta)
     if(!newMeta[name]) newMeta[name] = {}
-    newMeta[name]['label'] = value.trim()
+    newMeta[name]['label'] = value
     this.setState({
       meta: newMeta,
       b64encodedmeta: (Object.keys(newMeta).length > 0) ? window.btoa(JSON.stringify(newMeta)) : false,
