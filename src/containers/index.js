@@ -197,7 +197,10 @@ class IndexContainer extends Component {
     }
     const options = [
       { key: 'text', text: 'Text', value: 'text' },
-      { key: 'asset', text: 'STEEM/SBD', value: 'asset' },
+      { key: 'asset', text: 'STEEM or SBD', value: 'asset' },
+      { key: 'percent', text: 'Percentage', value: 'percent' },          
+      { key: 'steem', text: 'STEEM', value: 'steem' },
+      { key: 'sbd', text: 'SBD', value: 'sbd' },
       { key: 'vests', text: 'SP/Vests', value: 'vests'},
     ]
     const meta = this.state.meta[param]
