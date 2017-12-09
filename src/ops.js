@@ -125,7 +125,8 @@ module.exports = [
     "operation": "convert",
     "rules": {
       owner: "account",
-      amount: "asset"
+      amount: "asset",
+      requestid: "timestamp"
     },
     "params": [
       "owner",
